@@ -24,8 +24,8 @@
     "serve-favicon": "~2.3.0"
   },
   "engine": {
-    "node": "~6",
-    "npm": "~3"
+    "node": "6.2.2",
+    "npm": "3.9.3"
   },
   "devDependencies": {
     "auto-reload-brunch": "^2.7.1",
