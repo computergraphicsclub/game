@@ -38,9 +38,9 @@
 
 2. Code your changes, commit your changes
 
-3. Checkout on master branch, pull the latest master
+3. Checkout on development branch, pull the latest development
 
-4. Locally, merge the latest master that you just pulled with your branch that you just worked on. Any conflicts, please resolve here
+4. Locally, merge the latest development that you just pulled with your branch that you just worked on. Any conflicts, please resolve here
 
 5. Rebase the merged branch to squash all the commits into one, please make a short concise description on what you worked on
 
