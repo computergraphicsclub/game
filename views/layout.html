@@ -7,6 +7,7 @@
   <meta name="description" content="Game">
   <meta name="author" content="christianmsakai@gmail.com">
 
+  <!-- <link rel="stylesheet" href="/public/vendor.css"> -->
   <link rel="stylesheet" href="/public/app.css">
 
   <!--[if lt IE 9]>
@@ -19,12 +20,17 @@
   <div class="container">
     <h1 class="text-center">Game</h1>
     <h3 class="text-center">This is a playground</h3>
+  </div>
 
+ <div class="container">
     {% block content %}
     {% endblock %}
   </div>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/phaser/2.6.1/phaser.min.js"></script>
-  <script src="/public/app.js"></script>
+  <script src="/public/phaser/phaser.js"></script>
+
+  {% block script %}
+  {% endblock %}
+
 </body>
 </html>

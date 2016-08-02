@@ -6,11 +6,15 @@
 
    Usually NPM installation comes with NodeJS installation. After installation check your NodeJS version and NPM version by typing `node -v` and `npm -v`
 
-2. `git clone` this repository 
+3. Install [SASS](http://sass-lang.com/)
 
-3. `cd` into this repository and type `npm install`
+   This is necessary for CSS
 
-4. Type `npm run dev` to start development mode
+4. `git clone` this repository 
+
+5. `cd` into this repository and type `npm install`
+
+6. Type `npm run dev` to start development mode
 
 ## Commands
 
@@ -21,6 +25,12 @@
 * `npm run prod` to run in production mode
 
   * For deployment later
+
+## Notes
+
+* Phaser is copied from `node_modules` to `app/assets/phaser/phaser.js` because of incompatible build with Brunch. Therefore Phaser is available as __global__ object for now.
+
+* Please use `spaces` instead of `tabs` and please use `two spaces`.
 
 ## Git Workflow
 
@@ -41,3 +51,7 @@
 * [Phaser examples](http://phaser.io/examples)
 
 * [Game mechanic examples](http://gamemechanicexplorer.com/)
+
+* [Brick-Breaker Game](https://github.com/christiansakai/brick_breaker)
+
+* [Concentration Game](https://github.com/christiansakai/concentration)
