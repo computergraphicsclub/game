@@ -5,8 +5,7 @@
   "scripts": {
     "build": "./node_modules/.bin/brunch build -j 4 --production",
     "dev": "./node_modules/.bin/brunch watch --server",
-    "prod": "npm run build && node ./bin/www",
-    "postinstall": "npm run build"
+    "prod": "npm run build && node ./bin/www"
   },
   "dependencies": {
     "body-parser": "~1.15.1",
