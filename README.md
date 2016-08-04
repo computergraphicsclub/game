@@ -46,6 +46,10 @@
 
 5. Push the branch to origin
 
+## Game Specification and Documents
+
+* [Google Drive](https://drive.google.com/open?id=0B24JiL-7j6eeLXZHMmRWWVNKczg)
+
 ## Useful Links
 
 * [Phaser examples](http://phaser.io/examples)
