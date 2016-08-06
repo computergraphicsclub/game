@@ -1,18 +1,19 @@
 module.exports = {
   paths: {
-    watched: ["app"],
+    watched: ["app", "vendor"],
     public: "public"
   },
 
   files: {
     javascripts: {
-      entryPoints: {
-        "app/index.js": "app.js",
-        "app/javascripts/stage/index.js": "stage.js",
-        "app/javascripts/control/index.js": "control.js",
-        "app/javascripts/lighting/index.js": "lighting.js",
-        "app/javascripts/object/index.js": "object.js",
-        "app/javascripts/camera/index.js": "camera.js"
+      joinTo: {
+        "vendor.js": "vendor/phaser/phaser.js",
+        "app.js": "app/index.js",
+        "stage.js": /^app\/javascripts\/stage/,
+        "control.js": /^app\/javascripts\/control/,
+        "lighting.js": /^app\/javascripts\/lighting/,
+        "object.js": /^app\/javascripts\/object/,
+        "camera.js": /^app\/javascripts\/camera/
       }
     },
 
@@ -44,6 +45,14 @@ module.exports = {
       ignore: [
         /^(node_modules|vendor)/,
       ]
+    },
+
+    autoReload: {
+      enabled: {
+        css: "on",
+        js: "on",
+        assets: "off"
+      }
     }
   }
 }
