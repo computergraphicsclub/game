@@ -32,7 +32,11 @@
 
 * Please use `spaces` instead of `tabs` and please use `two spaces`.
 
-* Assets (images, sounds, fonts, etc) needs to be placed on `app/assets` folder. It will get recursively copied into `public/assets` folder on production. An example to use assets in your Javascript code is `game.load.image("assets/images/square.png")`.
+* Assets (images, sounds, fonts, etc) needs to be placed on `app/assets` folder. It will get recursively copied into `/public` folder on production and the `assets` path will be removed.
+
+  Example:
+  
+  * Put an image in `app/assets/images/square.png`. Use the image in your Javascript code `game.load.image("/public/images/square.png")`.
 
 ## Git Workflow
 
