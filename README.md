@@ -58,6 +58,7 @@
     [remote "heroku"]
       url = https://git.heroku.com/shrouded-refuge-37789.git
    ```
+3. While on `master` branch, do `git push heroku master`
 
 ## Game Specification and Documents
 
