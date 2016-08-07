@@ -32,6 +32,8 @@
 
 * Please use `spaces` instead of `tabs` and please use `two spaces`.
 
+* Assets (images, sounds, fonts, etc) needs to be placed on `app/assets` folder. It will get recursively copied into `public/assets` folder on production. An example to use assets in your Javascript code is `game.load.image("assets/images/square.png")`.
+
 ## Git Workflow
 
 1. Checkout on a branch
@@ -46,6 +48,17 @@
 
 5. Push the branch to origin
 
+## Heroku Deployment
+
+1. Open `.git/config` with your text editor
+
+2. Add this line of code on the bottom
+
+   ```
+    [remote "heroku"]
+      url = https://git.heroku.com/shrouded-refuge-37789.git
+   ```
+
 ## Game Specification and Documents
 
 * [Google Drive](https://drive.google.com/open?id=0B24JiL-7j6eeLXZHMmRWWVNKczg)
@@ -59,3 +72,5 @@
 * [Brick-Breaker Game](https://github.com/christiansakai/brick_breaker)
 
 * [Concentration Game](https://github.com/christiansakai/concentration)
+
+
