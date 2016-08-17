@@ -1,11 +1,12 @@
+import THREE from "three";
+import _ from "lodash";
+
 var game = new Phaser.Game(1140, 400, Phaser.AUTO, "game", {
   preload: preload,
   create: create,
   update: update,
   render: render
 });
-
-console.log("object");
 
 var Player = function(game, oxygen, health, speedDefault, speedFast) {
 
