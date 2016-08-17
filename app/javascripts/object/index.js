@@ -18,10 +18,10 @@ var Player = function(game, oxygen, health, speedDefault, speedFast) {
   // Player's Physical Form
   this.sizeX = 50;
   this.sizeY = 50;
-  this.boundingBox = new Phaser.Rectangle(this.x, this.y, this.sizeX, this.sizeY);
-  // this.boundingBox = game.add.sprite(this.x, this.y, 'square', 'boundingBox')
+  // this.boundingBox = new Phaser.Rectangle(this.x, this.y, this.sizeX, this.sizeY);
+  this.boundingBox = game.add.sprite(this.x, this.y, 'square', 'boundingBox')
   // player.boundingBox.anchor.setTo(0.5, 0.5);
-  // this.game.camera.follow(this.boundingBox);
+  this.game.camera.follow(this.boundingBox);
 
   // Player's Living Stats
   this.oxygen = oxygen;
@@ -39,8 +39,6 @@ var Player = function(game, oxygen, health, speedDefault, speedFast) {
 }
 
 Player.prototype.update = function() {
-  // console.log('movement')
-
   // WASD - UDLR Controls
   if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT)||
       game.input.keyboard.isDown(Phaser.Keyboard.A))
@@ -126,7 +124,7 @@ var pad,
 /* ------------------------------------------------------------------ */
 
 function preload() {
-  game.world.setBounds(0, 0, 1140, 400)
+  game.world.setBounds(0, 0, 2280, 800)
   // game.load.image('player', 'assets/test/square.png')
 }
 
