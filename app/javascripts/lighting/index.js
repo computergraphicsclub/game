@@ -1,6 +1,17 @@
-var game = new Phaser.Game(1140, 400, Phaser.AUTO, "game");
-var mainState = require("./mainState");
+import Main from "./states/Main";
 
-game.state.add("mainState", mainState);
+class Game extends Phaser.Game {
+  constructor(width, height, engine, domNode) {
+    super(width, height, engine, domNode);
 
-game.state.start("mainState");
+    this.state.add("Main", Main, false);
+  }
+
+  start() {
+    this.state.start("Main");
+  }
+}
+
+const game = new Game(1140, 400, Phaser.AUTO, "game");
+
+game.start();
