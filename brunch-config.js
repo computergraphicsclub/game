@@ -43,6 +43,12 @@ module.exports = {
   plugins: {
     babel: {
       presets: ['es2015', 'es2016'],
+      plugins: [
+        "transform-es2015-destructuring",
+        "transform-object-rest-spread",
+        "transform-decorators-legacy",
+        "transform-class-properties"
+      ],
       ignore: [
         /^(node_modules|vendor)/,
       ]
