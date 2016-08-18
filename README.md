@@ -38,6 +38,18 @@
   
   * Put an image in `app/assets/images/square.png`. Use the image in your Javascript code `game.load.image("/public/images/square.png")`.
 
+* Lodash and Three available. In order to use those libraries. Please import them in your Javascript file.
+
+  Example:
+
+  ```
+  // myFile.js
+  import THREE from "three";
+  import _ from "lodash";
+
+  // your code
+  ```
+
 ## Git Workflow
 
 1. Checkout on a branch

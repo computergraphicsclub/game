@@ -7,7 +7,8 @@ module.exports = {
   files: {
     javascripts: {
       joinTo: {
-        "vendor.js": "vendor/phaser/phaser.js",
+        "vendor.js": /^node_modules/,
+        "phaser.js": "vendor/phaser/phaser.js",
         "app.js": "app/index.js",
         "stage.js": /^app\/javascripts\/stage/,
         "control.js": /^app\/javascripts\/control/,
