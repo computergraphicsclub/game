@@ -50,6 +50,16 @@
   // your code
   ```
 
+* Ocassionally Brunch might eats a lot of memory and spin your laptop fan. I know what's causing this but I have no idea why it happened. I'll try to fix it later. 
+
+  Meanwhile, to resolve that:
+
+  * stop the server
+
+  * type `ps aux | grep node` and look at the process id (PID) of brunch
+
+  * type `kill -9 <PID>` (replace the <PID> with the process id that is still alive)
+
 ## Git Workflow
 
 1. Checkout on a branch
@@ -82,6 +92,8 @@
 
 ## Useful Links
 
+* [Debugging Phaser](https://gamedevacademy.org/how-to-debug-phaser-games/)
+
 * [Phaser examples](http://phaser.io/examples)
 
 * [Game mechanic examples](http://gamemechanicexplorer.com/)
@@ -89,5 +101,3 @@
 * [Brick-Breaker Game](https://github.com/christiansakai/brick_breaker)
 
 * [Concentration Game](https://github.com/christiansakai/concentration)
-
-
