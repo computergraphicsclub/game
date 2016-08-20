@@ -6,7 +6,8 @@
     "build": "./node_modules/.bin/brunch build -j 4 --production",
     "dev": "./node_modules/.bin/brunch watch --server",
     "prod": "npm run build && node ./bin/www",
-    "postinstall": "npm run build"
+    "postinstall": "npm run build",
+    "docs": "./node_modules/.bin/jsdoc app -r -c jsdoc.conf.json -d docs -R README.md"
   },
   "dependencies": {
     "auto-reload-brunch": "^2.7.1",
@@ -24,6 +25,7 @@
     "express": "~4.13.4",
     "javascript": "0.0.0",
     "jquery": "^3.1.0",
+    "jsdoc": "^3.4.0",
     "lodash": "^4.14.1",
     "morgan": "~1.7.0",
     "nodemon": "^1.10.0",
