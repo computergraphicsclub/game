@@ -26,6 +26,8 @@
 
   * For deployment later
 
+* `npm run docs` to generate documentation in `docs` folder
+
 ## Notes
 
 * Phaser is copied from `node_modules` to `app/assets/phaser/phaser.js` because of incompatible build with Brunch. Therefore Phaser is available as __global__ object for now.
@@ -101,3 +103,5 @@
 * [Brick-Breaker Game](https://github.com/christiansakai/brick_breaker)
 
 * [Concentration Game](https://github.com/christiansakai/concentration)
+
+* [Flabby Bird Game](https://github.com/christiansakai/flabby_bird)
