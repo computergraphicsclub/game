@@ -9,6 +9,7 @@ console.log("control");
 
 //Game Objects
 var player,
+    player_sprite,
     enemies = [], // ex: jellyfish
     enemyAmount = 3,
     item;
@@ -31,7 +32,7 @@ var cursors,
     pad,
     testButton;
 
-// Object called Player
+// Class called Player
 var Player = function(game, oxygen, health, speedDefault, speedFast) {
 
   this.game = game;
@@ -43,7 +44,11 @@ var Player = function(game, oxygen, health, speedDefault, speedFast) {
   // Player's Physical Form
   this.sizeX = 50;
   this.sizeY = 50;
-  this.boundingBox = new Phaser.Rectangle(this.x, this.y, this.sizeX, this.sizeY);
+  this.boundingBox = game.add.sprite(this.x,this.y,'diver');
+  this.aim = game.add.sprite(this.x,this.y,'aim');
+  //this.player_sprite = game.add.sprite(this.x,this.y,'diver');
+  //this.player_sprite.anchor.setTo(0.5,0.5);
+
   // this.boundingBox = game.add.sprite(this.x, this.y, 'square', 'boundingBox')
   // player.boundingBox.anchor.setTo(0.5, 0.5);
   // this.game.camera.follow(this.boundingBox);
@@ -70,6 +75,9 @@ var Player = function(game, oxygen, health, speedDefault, speedFast) {
 
 // This holds on the player data that need to be updated during the game
 Player.prototype.update = function() {
+  this.aim.x = this.boundingBox.x+15;
+  this.aim.y = this.boundingBox.y+15;
+  this.aim.rotation = game.physics.arcade.angleToPointer(this.aim);
   this.updateKeyIsDown();
 }
 
@@ -210,11 +218,14 @@ function createPadControls(){
 
 //Phaser runs this function first, this loads the assets into the game
 function preload() {
+  game.load.image("diver", "/public/images/diver.png");
+  game.load.image("aim", "/public/images/flashlight1.png");
   game.world.setBounds(0, 0, 1140, 400);
 }
 
 //This is called once after preload
 function create() {
+  game.physics.startSystem(Phaser.Physics.ARCADE);
   //disables context menu when right click is pressed
   game.canvas.oncontextmenu = function (e){
     e.preventDefault();
@@ -230,7 +241,8 @@ function update() {
 
 //This is mostly for debug overlays...I think
 function render() {
-  game.debug.geom(player.boundingBox);
+  //game.debug.geom(player.boundingBox);
+  game.debug.geom(player.aim);
   game.debug.text('Torch:'+player.torchOn, 20, 40);
   game.debug.text('Harpoons:'+ player.harpoons, 20, 60);
   game.debug.text('Speed: '+player.speedCurrent, 20, 80);
