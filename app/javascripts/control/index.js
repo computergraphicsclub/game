@@ -9,6 +9,7 @@ console.log("control");
 
 //Game Objects
 var player,
+    player_sprite,
     enemies = [], // ex: jellyfish
     enemyAmount = 3,
     item;
@@ -21,7 +22,9 @@ var speedDefault = 3,
     health = 2;
 
 //Inputs
-var cursors,
+var rightStickX,
+    rightStickY,
+    cursors,
     leftKey,
     rightKey,
     upKey,
@@ -31,7 +34,7 @@ var cursors,
     pad,
     testButton;
 
-// Object called Player
+// Class called Player
 var Player = function(game, oxygen, health, speedDefault, speedFast) {
 
   this.game = game;
@@ -43,10 +46,8 @@ var Player = function(game, oxygen, health, speedDefault, speedFast) {
   // Player's Physical Form
   this.sizeX = 50;
   this.sizeY = 50;
-  this.boundingBox = new Phaser.Rectangle(this.x, this.y, this.sizeX, this.sizeY);
-  // this.boundingBox = game.add.sprite(this.x, this.y, 'square', 'boundingBox')
-  // player.boundingBox.anchor.setTo(0.5, 0.5);
-  // this.game.camera.follow(this.boundingBox);
+  this.sprite = game.add.sprite(this.x,this.y,'diver');
+  this.aim = game.add.sprite(this.x,this.y,'aim');
 
   // Player's Living Stats
   this.oxygen = oxygen;
@@ -70,6 +71,7 @@ var Player = function(game, oxygen, health, speedDefault, speedFast) {
 
 // This holds on the player data that need to be updated during the game
 Player.prototype.update = function() {
+  this.aimCalls();
   this.updateKeyIsDown();
 }
 
@@ -81,32 +83,32 @@ Player.prototype.updateKeyIsDown = function () {
       pad.isDown(Phaser.Gamepad.XBOX360_DPAD_LEFT) ||
       pad.axis(Phaser.Gamepad.XBOX360_STICK_LEFT_X) < -0.1)
   {
-      this.boundingBox.x -= this.speedCurrent;
-      this.boundingBox.angle = -15;
+      this.sprite.x -= this.speedCurrent;
+      this.sprite.angle = -15;
   }
   if (cursors.right.isDown ||
       rightKey.isDown ||
       pad.isDown(Phaser.Gamepad.XBOX360_DPAD_RIGHT) ||
       pad.axis(Phaser.Gamepad.XBOX360_STICK_LEFT_X) > 0.1)
   {
-      this.boundingBox.x += this.speedCurrent;
-      this.boundingBox.angle = 15;
+      this.sprite.x += this.speedCurrent;
+      this.sprite.angle = 15;
   }
   if (cursors.up.isDown ||
       upKey.isDown ||
       pad.isDown(Phaser.Gamepad.XBOX360_DPAD_UP) ||
       pad.axis(Phaser.Gamepad.XBOX360_STICK_LEFT_Y) < -0.1)
   {
-      this.boundingBox.y -= this.speedCurrent;
-      this.boundingBox.angle = 15;
+      this.sprite.y -= this.speedCurrent;
+      this.sprite.angle = 15;
   }
   if (cursors.down.isDown ||
       downKey.isDown ||
       pad.isDown(Phaser.Gamepad.XBOX360_DPAD_DOWN) ||
       pad.axis(Phaser.Gamepad.XBOX360_STICK_LEFT_Y) > 0.1)
   {
-      this.boundingBox.y += this.speedCurrent;
-      this.boundingBox.angle = 15;
+      this.sprite.y += this.speedCurrent;
+      this.sprite.angle = 15;
   }
 
   // Acceleration for Keyboard and Pad
@@ -138,6 +140,16 @@ Player.prototype.playerKeyOnDown = function () {
 Player.prototype.addPadCallBack= function () {
   pad.addCallbacks(this, {
     onConnect: createPadControls});
+}
+
+Player.prototype.aimCalls = function () {
+  this.aim.x = this.sprite.x+15;
+  this.aim.y = this.sprite.y+15;
+  //this.aim.rotation = game.physics.arcade.angleToPointer(this.aim);
+  this.aim.rotation = game.physics.arcade.angleToXY(this.aim,
+                                                    pad.axis(Phaser.Gamepad.XBOX360_STICK_RIGHT_X)*1000,
+                                                    pad.axis(Phaser.Gamepad.XBOX360_STICK_RIGHT_Y)*1000);
+
 }
 
 //Player speed will increase to Fast
@@ -199,7 +211,6 @@ function createPadControls(){
       //buttonDPRight = pad.getButton(Phaser.Gamepad.XBOX360_DPAD_RIGHT),
       //buttonDPUp = pad.getButton(Phaser.Gamepad.XBOX360_DPAD_UP),
       //buttonDPDown = pad.getButton(Phaser.Gamepad.XBOX360_DPAD_DOWN);
-
       //Bind onDown function to these buttons
       buttonLeftTrigger.onDown.add(this.torchToggle, this);
       buttonRightTrigger.onDown.add(this.shoot, this);
@@ -210,11 +221,14 @@ function createPadControls(){
 
 //Phaser runs this function first, this loads the assets into the game
 function preload() {
+  game.load.image("diver", "/public/images/diver.png");
+  game.load.image("aim", "/public/images/flashlight1.png");
   game.world.setBounds(0, 0, 1140, 400);
 }
 
 //This is called once after preload
 function create() {
+  game.physics.startSystem(Phaser.Physics.ARCADE);
   //disables context menu when right click is pressed
   game.canvas.oncontextmenu = function (e){
     e.preventDefault();
@@ -230,11 +244,14 @@ function update() {
 
 //This is mostly for debug overlays...I think
 function render() {
-  game.debug.geom(player.boundingBox);
+  //game.debug.geom(player.sprite);
+  game.debug.geom(player.aim);
   game.debug.text('Torch:'+player.torchOn, 20, 40);
   game.debug.text('Harpoons:'+ player.harpoons, 20, 60);
   game.debug.text('Speed: '+player.speedCurrent, 20, 80);
   game.debug.text('Mouse Position:(' +game.input.activePointer.x+ ','
                                      +game.input.activePointer.y+')',  20, 100);
-  game.debug.text('Pad statuts: '+pad.connected, 20, 120);
+  game.debug.text('Pad status: '+pad.connected, 20, 120);
+  game.debug.text('Pad Right Stick XAxis: '+ pad.axis(Phaser.Gamepad.XBOX360_STICK_RIGHT_X), 20, 140);
+  game.debug.text('Pad Right Stick YAxis: '+ pad.axis(Phaser.Gamepad.XBOX360_STICK_RIGHT_Y), 20, 160);
 }
