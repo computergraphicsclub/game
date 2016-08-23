@@ -100,8 +100,10 @@
 
 * [Game mechanic examples](http://gamemechanicexplorer.com/)
 
-* [Brick-Breaker Game](https://github.com/christiansakai/brick_breaker)
+* [Brick-Breaker](https://github.com/christiansakai/brick_breaker)
 
-* [Concentration Game](https://github.com/christiansakai/concentration)
+* [Concentration](https://github.com/christiansakai/concentration)
 
-* [Flabby Bird Game](https://github.com/christiansakai/flabby_bird)
+* [Flabby Bird](https://github.com/christiansakai/flabby_bird)
+
+* [Super Koin Box](https://github.com/christiansakai/super_koin_box)
