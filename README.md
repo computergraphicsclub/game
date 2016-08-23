@@ -94,6 +94,10 @@
 
 ## Useful Links
 
+* [Free Sprites](http://opengameart.org/)
+
+* [Free SFX](http://www.bfxr.net/)
+
 * [Debugging Phaser](https://gamedevacademy.org/how-to-debug-phaser-games/)
 
 * [Phaser examples](http://phaser.io/examples)
