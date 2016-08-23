@@ -94,14 +94,20 @@
 
 ## Useful Links
 
+* [Free Sprites](http://opengameart.org/)
+
+* [Free SFX](http://www.bfxr.net/)
+
 * [Debugging Phaser](https://gamedevacademy.org/how-to-debug-phaser-games/)
 
 * [Phaser examples](http://phaser.io/examples)
 
 * [Game mechanic examples](http://gamemechanicexplorer.com/)
 
-* [Brick-Breaker Game](https://github.com/christiansakai/brick_breaker)
+* [Brick-Breaker](https://github.com/christiansakai/brick_breaker)
 
-* [Concentration Game](https://github.com/christiansakai/concentration)
+* [Concentration](https://github.com/christiansakai/concentration)
 
-* [Flabby Bird Game](https://github.com/christiansakai/flabby_bird)
+* [Flabby Bird](https://github.com/christiansakai/flabby_bird)
+
+* [Super Koin Box](https://github.com/christiansakai/super_koin_box)
