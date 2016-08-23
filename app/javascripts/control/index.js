@@ -145,7 +145,7 @@ Player.prototype.addPadCallBack= function () {
 Player.prototype.aimCalls = function () {
   this.aim.x = this.sprite.x+15;
   this.aim.y = this.sprite.y+15;
-  //this.aim.rotation = game.physics.arcade.angleToPointer(this.aim);
+  this.aim.rotation = game.physics.arcade.angleToPointer(this.aim);
   this.aim.rotation = game.physics.arcade.angleToXY(this.aim,
                                                     pad.axis(Phaser.Gamepad.XBOX360_STICK_RIGHT_X)*1000,
                                                     pad.axis(Phaser.Gamepad.XBOX360_STICK_RIGHT_Y)*1000);
