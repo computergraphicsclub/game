@@ -1,4 +1,6 @@
-# Game Project
+# Necronautica
+
+A collaboration game project from members of Computer Graphics Club.
 
 ## Setup
 
