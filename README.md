@@ -84,7 +84,7 @@
 
    ```
     [remote "heroku"]
-      url = https://git.heroku.com/shrouded-refuge-37789.git
+      url = https://git.heroku.com/necronautica.git
    ```
 3. While on `master` branch, do `git push heroku master`
 
