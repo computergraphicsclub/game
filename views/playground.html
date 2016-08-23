@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% block content %}
+  <div class="mg30 container text-center">
+    <a class="btn btn-lg btn-danger" href="/">Back</a>
+    <a class="btn btn-lg btn-default" href="/playground/stage">Stage</a>
+    <a class="btn btn-lg btn-success" href="/playground/object">Object</a>
+    <a class="btn btn-lg btn-primary" href="/playground/control">Control</a>
+    <a class="btn btn-lg btn-warning" href="/playground/lighting">Lighting</a>
+    <a class="btn btn-lg btn-danger" href="/playground/camera">Camera</a>
+  </div>
+
+  {% block playgroundBody %}
+  {% endblock %}
+{% endblock %}
+
+{% block script %}
+  <script src="/public/app.js"></script>
+
+  {% block playgroundScript %}
+  {% endblock %}
+{% endblock %}
