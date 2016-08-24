@@ -1,4 +1,4 @@
-class Shadow extends Phaser.BitmapData {
+class LightAndShadow extends Phaser.BitmapData {
   constructor({ game, key, width, height, lightRadius}) {
     super(game, key, width, height);
 
@@ -13,7 +13,14 @@ class Shadow extends Phaser.BitmapData {
 
   redraw(x, y) {
     this.redrawShadow();
-    this.redrawSoftEdgedLight(x, y);
+
+    // this.redrawSoftEdgedLight(x, y);
+
+    this.redrawTriangleLight({ x, y }, { 
+      x: this.game.input.x, 
+      y: this.game.input.y
+    });
+
     this.dirty = true;
   }
 
@@ -22,14 +29,14 @@ class Shadow extends Phaser.BitmapData {
     this.context.fillRect(0, 0, this.game.width, this.game.height);
   }
 
-  redrawLight(x, y) {
+  redrawCircleLight(x, y) {
     this.context.beginPath();
     this.context.fillStyle = "rgb(255, 255, 255)";
     this.context.arc(x, y, this.lightRadius, 0, Math.PI * 2);
     this.context.fill();
   }
 
-  redrawSoftEdgedLight(x, y) {
+  redrawCircleSoftEdgedLight(x, y) {
     const innerRadius = this.lightRadius;
 
     const gradient = this.context
@@ -47,7 +54,7 @@ class Shadow extends Phaser.BitmapData {
     this.context.fill();
   }
 
-  redrawSoftEdgedFlickeringLight(x, y) {
+  redrawCircleSoftEdgedFlickeringLight(x, y) {
     const innerRadius = this.game.rnd.integerInRange(1, 10);
 
     const gradient = this.context
@@ -65,6 +72,57 @@ class Shadow extends Phaser.BitmapData {
     this.context.fill();
   }
 
+  redrawTriangleLight(from, to) {
+    // The light is an isosceles triangle -90 degree rotated
+    // a = from, d = to
+    //
+    //          b
+    //         /|
+    //       /  |
+    //     /    |
+    // a /__h___|d 
+    //   \      |
+    //     \    |
+    //       \  |
+    //         \|
+    //          c
+
+    const h = Phaser.Math.distance(from.x, from.y, to.x, to.y);
+    const radACD = Phaser.Math.degToRad(70);
+    const radABD = Phaser.Math.degToRad(70);
+
+    // Taking the top of the triangle above
+    //
+    // a
+    // |\
+    // |  \
+    // |    \ hypothenuse
+    // |      \
+    // |opposite\
+    // |          \
+    // |____________\ b
+    // d  adjacent
+    const opposite = h;
+    const adjacent = opposite / Math.tan(radABD);
+
+    // Calculate coordinate b
+    const bx = from.x + opposite;
+    const by = from.y - adjacent;
+
+    // Calculate coordinate c
+    const cx = from.x + opposite
+    const cy = from.y + adjacent;
+
+    this.context.beginPath();
+    this.context.moveTo(from.x, from.y);
+    this.context.lineTo(bx, by);
+    this.context.lineTo(cx, cy);
+    this.context.closePath();
+
+    this.context.fillStyle = "rgb(255, 255, 255)";
+    this.context.fill();
+  }
+
 }
 
-export default Shadow;
+export default LightAndShadow;

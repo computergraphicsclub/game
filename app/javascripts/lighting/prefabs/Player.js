@@ -11,7 +11,7 @@ class Player extends Phaser.Sprite {
     this.anchor.setTo(0.5, 0.5);
 
     this.game.physics.arcade.enable(this);
-    // this.body.gravity.y = 500;
+    this.body.gravity.y = 500;
   }
 
   setupAnimations() {
@@ -24,30 +24,14 @@ class Player extends Phaser.Sprite {
       this.moveLeft();
     else if (controls.cursors.right.isDown)
       this.moveRight();
-    else if (controls.cursors.up.isDown)
-      this.moveUp();
-    else if (controls.cursors.down.isDown)
-      this.moveDown();
     else
       this.stand();
-
-    if (controls.spacebar.isDown)
-      this.jump();
   }
 
   stand() {
     this.body.velocity.x = 0;
-    this.body.velocity.y = 0;
     this.animations.stop();
     this.frame = 0;
-  }
-
-  moveUp() {
-    this.body.velocity.y = -200;
-  }
-
-  moveDown() {
-    this.body.velocity.y = 200;
   }
 
   moveLeft() {
@@ -61,10 +45,7 @@ class Player extends Phaser.Sprite {
   }
 
   jump() {
-    if (this.body.touching.down) {
-      this.sounds.jump.play();
-      this.body.velocity.y = -320;
-    }
+    this.body.velocity.y = -320;
   }
 
 }

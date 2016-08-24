@@ -1,20 +1,22 @@
 class Map extends Phaser.Tilemap {
-  constructor({ game, key, tileset, layer, backgroundColor }) {
+  constructor({ game, key, tileset, backgroundColor }) {
     super(game, key);
 
     this.setBackgroundColor(backgroundColor);
     this.addTilesetImage(tileset);
-    this.addLayer(layer);
-    this.setCollision(0);
   }
 
   setBackgroundColor(color) {
     this.game.stage.backgroundColor = color;
   }
 
-  addLayer(layer) {
+  addLayerAndCollision(layer) {
     const _layer = this.createLayer(layer);
     _layer.resizeWorld();
+
+    this.setCollision(1);
+
+    return _layer;
   }
 }
 
