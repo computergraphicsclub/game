@@ -11,7 +11,7 @@ class Shadow extends Phaser.BitmapData {
     shadowTexture.blendMode = Phaser.blendModes.MULTIPLY;
   }
 
-  redrawLightAndShadow(x, y) {
+  redraw(x, y) {
     this.redrawShadow();
     this.redrawSoftEdgedLight(x, y);
     this.dirty = true;
