@@ -1,38 +1,70 @@
-import Diver from "../objects/Diver";
-import LightAndShadow from "../objects/LightAndShadow";
+import Map from "../prefabs/Map";
+import Player from "../prefabs/Player";
+import LightAndShadow from "../prefabs/LightAndShadow";
 
 class Main extends Phaser.State {
-  init() {}
-
-  preload() {
-    this.game.load.image("diver", "/public/images/diver.png");
+  create() {
+    this.setupPhysics();
+    this.setupControls();
+    this.createMap();
+    this.createShadow();
+    this.createPlayer();
   }
 
-  create() {
-    this.game.stage.backgroundColor = 0x4488cc;
+  setupPhysics() {
+    this.game.physics.startSystem(Phaser.Physics.ARCADE);
+  }
 
-    this.diver = new Diver({
-      game: this.game, 
-      x: 200, 
-      y: 200, 
-      asset: "diver"
+  setupControls() {
+    this.controls = {
+      cursors: this.game.input.keyboard.createCursorKeys(),
+      spacebar: this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR)
+    };
+  }
+
+  createMap() {
+    this.map = new Map({
+      game: this.game,
+      key: "map",
+      tileset: "tileset",
+      layer: "Tile Layer 1",
+      backgroundColor: "2dc9ff"
     });
+  }
 
+  createShadow() {
     this.lightAndShadow = new LightAndShadow({ 
       game: this.game, 
-      lightRadius: 100 
+      key: "shadow",
+      width: this.game.width,
+      height: this.game.height,
+      lightRadius: 100
+    });
+  }
+
+  createPlayer() {
+    this.player = new Player({
+      game: this.game,
+      x: 30,
+      y: 30,
+      key: "player"
     });
   }
 
   update() {
-    this.lightAndShadow.update();
+    this.game.physics.arcade.collide(this.player, this.map);
 
-    // Because this is an extension of
-    // Phaser.Sprite class
-    // update will be called automatically anyway
-    // I put it here just to make it consistent
-    this.diver.update();
+    this.player.move(this.controls);
+    this.lightAndShadow.redraw(this.player.x, this.player.y);
   }
+
+
+
+
+
+
+
+
 }
 
 export default Main;
