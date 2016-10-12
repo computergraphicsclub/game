@@ -1,8 +1,8 @@
 import Preload from "./states/Preload";
-import Play from "./states/Play"
+import Create from "./states/Create"
+import Update from "./states/Update"
 
 /**
- *
  * @param {object} config game configuration
  * @param {number} config.width game width in pixels
  * @param {number} config.height game height in pixels
@@ -16,7 +16,8 @@ class Game extends Phaser.Game {
     super(width, height, engine, domNode);
 
     this.state.add("Preload", Preload, false);
-    this.state.add("Play", Play, false);
+    this.state.add("Create",  Create, false);
+    // this.state.add("Update",  Update, false);
   };
 
   start() {
