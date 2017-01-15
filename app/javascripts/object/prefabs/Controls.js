@@ -115,66 +115,97 @@ class Controls extends Phaser.Sprite {
 
     // check up
     if (this.controls[0].cursors.up.isDown || this.controls[0].wasd.up.isDown )
-      { this.player.moveUp(); this.debug.highlight(3); }
+      { this.player.moveUp(); this.keyboardMouseUsed(); this.debug.highlight(3); }
 
     // check down
     if (this.controls[0].cursors.down.isDown || this.controls[0].wasd.down.isDown )
-      { this.player.moveDown(); this.debug.highlight(4); }
+      { this.player.moveDown(); this.keyboardMouseUsed(); this.debug.highlight(4); }
 
     // check left
     if (  this.controls[0].cursors.left.isDown || this.controls[0].wasd.left.isDown )
-      { this.player.moveLeft(); this.debug.highlight(5); }
+      { this.player.moveLeft(); this.keyboardMouseUsed(); this.debug.highlight(5); }
 
     // check right
     if (this.controls[0].cursors.right.isDown || this.controls[0].wasd.right.isDown )
-      { this.player.moveRight(); this.debug.highlight(6); }
+      { this.player.moveRight(); this.keyboardMouseUsed(); this.debug.highlight(6); }
 
     if (this.controls[0].spacebar.isDown)
-      this.player.shoot();
+      { this.player.shoot(); this.keyboardMouseUsed(); this.debug.highlight(14); }
   }
 
   mouse() {
-    if(this.controls[1].mouse.left.isDown) { this.player.shoot(); }
-    if(this.controls[1].mouse.right.isDown) { this.player.turnTorchOn(); }
+    if(this.controls[1].mouse.left.isDown) { this.player.toggleTorchOn();     this.keyboardMouseUsed(); }
+    if(this.controls[1].mouse.right.isDown) { this.player.toggleTorchMode();  this.keyboardMouseUsed(); }
+    if(!this.joypadUsedLast) { this.setMouseAngle(); }
   }
 
   joypad() {
     // Test if joypad is dead
-    if(!this.gamepad.connected) this.debug.joypadSprites.children[20].alpha = 1;
+    if(!this.gamepad.connected) this.debug.joypadDead();
 
     // DPAD Controls
-    if ( this.gamepad.isDown(this.controls[2].dpad.up) )   { this.player.moveUp();    this.debug.highlight(3); }
-    if ( this.gamepad.isDown(this.controls[2].dpad.down) ) { this.player.moveDown();  this.debug.highlight(4); }
-    if ( this.gamepad.isDown(this.controls[2].dpad.left))  { this.player.moveLeft();  this.debug.highlight(5); }
-    if ( this.gamepad.isDown(this.controls[2].dpad.right)) { this.player.moveRight(); this.debug.highlight(6); }
+    if ( this.gamepad.isDown(this.controls[2].dpad.up) )   { this.player.moveUp();    this.joypadUsed(); this.debug.highlight(3); }
+    if ( this.gamepad.isDown(this.controls[2].dpad.down) ) { this.player.moveDown();  this.joypadUsed(); this.debug.highlight(4); }
+    if ( this.gamepad.isDown(this.controls[2].dpad.left))  { this.player.moveLeft();  this.joypadUsed(); this.debug.highlight(5); }
+    if ( this.gamepad.isDown(this.controls[2].dpad.right)) { this.player.moveRight(); this.joypadUsed(); this.debug.highlight(6); }
 
     // LEFT ANALOG Controls
-    if ( this.gamepad.axis(this.controls[2].analog.left.y) < -0.1 ) { this.player.moveUp();    this.debug.highlight(18); }
-    if ( this.gamepad.axis(this.controls[2].analog.left.y) >  0.1 ) { this.player.moveDown();  this.debug.highlight(18); }
-    if ( this.gamepad.axis(this.controls[2].analog.left.x) < -0.1 ) { this.player.moveLeft();  this.debug.highlight(18); }
-    if ( this.gamepad.axis(this.controls[2].analog.left.x) >  0.1 ) { this.player.moveRight(); this.debug.highlight(18); }
+    if ( this.gamepad.axis(this.controls[2].analog.left.y) < -0.1 ) { this.player.moveUp();    this.joypadUsed(); this.debug.highlight(17); }
+    if ( this.gamepad.axis(this.controls[2].analog.left.y) >  0.1 ) { this.player.moveDown();  this.joypadUsed(); this.debug.highlight(17); }
+    if ( this.gamepad.axis(this.controls[2].analog.left.x) < -0.1 ) { this.player.moveLeft();  this.joypadUsed(); this.debug.highlight(17); }
+    if ( this.gamepad.axis(this.controls[2].analog.left.x) >  0.1 ) { this.player.moveRight(); this.joypadUsed(); this.debug.highlight(17); }
 
     // RIGHT ANALOG Controls
-    if ( this.gamepad.axis(this.controls[2].analog.right.y) < -0.1 ) { this.debug.highlight(19); }
-    if ( this.gamepad.axis(this.controls[2].analog.right.y) >  0.1 ) { this.debug.highlight(19); }
-    if ( this.gamepad.axis(this.controls[2].analog.right.x) < -0.1 ) { this.debug.highlight(19); }
-    if ( this.gamepad.axis(this.controls[2].analog.right.x) >  0.1 ) { this.debug.highlight(19); }
+    if ( this.gamepad.axis(this.controls[2].analog.right.y) < -0.1 ) { this.setJoypadAngle(); this.joypadUsed(); this.debug.highlight(18); }
+    if ( this.gamepad.axis(this.controls[2].analog.right.y) >  0.1 ) { this.setJoypadAngle(); this.joypadUsed(); this.debug.highlight(18); }
+    if ( this.gamepad.axis(this.controls[2].analog.right.x) < -0.1 ) { this.setJoypadAngle(); this.joypadUsed(); this.debug.highlight(18); }
+    if ( this.gamepad.axis(this.controls[2].analog.right.x) >  0.1 ) { this.setJoypadAngle(); this.joypadUsed(); this.debug.highlight(18); }
 
     // ABXY Controls
-    if ( this.gamepad.isDown(this.controls[2].abxy.a) ) { this.debug.highlight(7); }
-    if ( this.gamepad.isDown(this.controls[2].abxy.b) ) { this.debug.highlight(8); }
-    if ( this.gamepad.isDown(this.controls[2].abxy.x) ) { this.debug.highlight(9); }
-    if ( this.gamepad.isDown(this.controls[2].abxy.y) ) { this.debug.highlight(10); }
+    if ( this.gamepad.isDown(this.controls[2].abxy.a) ) { this.player.toggleTorchOn();    this.joypadUsed(); this.debug.highlight(7); }
+    if ( this.gamepad.isDown(this.controls[2].abxy.b) ) { this.player.toggleTorchMode();  this.joypadUsed(); this.debug.highlight(8); }
+    if ( this.gamepad.isDown(this.controls[2].abxy.x) ) {                                 this.joypadUsed(); this.debug.highlight(9); }
+    if ( this.gamepad.isDown(this.controls[2].abxy.y) ) {                                 this.joypadUsed(); this.debug.highlight(10); }
 
     // LR Controls
-    if ( this.gamepad.isDown(this.controls[2].shoulder.left) ) { this.player.torchBeamOn(); this.debug.highlight(11); }
-    if ( this.gamepad.isDown(this.controls[2].shoulder.right) ) { this.player.turnTorchOn(); this.debug.highlight(12); }
-    if ( this.gamepad.isDown(this.controls[2].trigger.left) )  { this.player.sprint(); this.debug.highlight(13); }
-    if ( this.gamepad.isDown(this.controls[2].trigger.right) ) { this.player.shoot(); this.debug.highlight(14); }
+    if ( this.gamepad.isDown(this.controls[2].shoulder.left) ) { this.player.toggleTorchMode(); this.joypadUsed(); this.debug.highlight(11); }
+    if ( this.gamepad.isDown(this.controls[2].shoulder.right)) { this.player.toggleTorchOn();   this.joypadUsed(); this.debug.highlight(12); }
+    if ( this.gamepad.isDown(this.controls[2].trigger.left) )  { this.player.sprint();          this.joypadUsed(); this.debug.highlight(13); }
+    if ( this.gamepad.isDown(this.controls[2].trigger.right) ) { this.player.shoot();           this.joypadUsed(); this.debug.highlight(14); }
 
     // BS Controls
-    if ( this.gamepad.isDown(this.controls[2].bs.back) )  { this.debug.highlight(15); }
-    if ( this.gamepad.isDown(this.controls[2].bs.start) ) { this.debug.highlight(16); }
+    if ( this.gamepad.isDown(this.controls[2].bs.back) )  { this.joypadUsed(); this.debug.highlight(15); }
+    if ( this.gamepad.isDown(this.controls[2].bs.start) ) { this.joypadUsed(); this.debug.highlight(16); }
+
+    // if(this.joypadUsedLast) { this.setJoypadAngle(); }
+    // console.log(this.gamepad.connected)
+  }
+
+  keyboardMouseUsed() {
+    this.joypadUsedLast = false;
+  }
+
+  joypadUsed() {
+    this.joypadUsedLast = true;
+  }
+
+  setMouseAngle() {
+    this.player.torchSprite.rotation = this.game.physics.arcade.angleToPointer(this.player.torchSprite);
+  }
+
+  setJoypadAngle() {
+    // Torch Rotation
+      this.player.torchSprite.rotation = this.game.physics.arcade.angleToXY(
+        this.player.torchSprite,
+        this.gamepad.axis(Phaser.Gamepad.XBOX360_STICK_RIGHT_X)*1000,
+        this.gamepad.axis(Phaser.Gamepad.XBOX360_STICK_RIGHT_Y)*1000
+      );
+  }
+
+  update() {
+    this.keyboard();
+    this.mouse();
+    this.joypad();
   }
 
 }

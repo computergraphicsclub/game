@@ -20,9 +20,11 @@
 
     printDebug(player) {
       if (this.isEnabled()) {
+        this.game.debug.text('player.x: '+player.x+', player.y: '+player.y, 40, 40);
         this.game.debug.text('harpoons: '+player.harpoons+'', player.x - 140, player.y - 15);
-        this.game.debug.text(' torch on: '+player.torchOn+'', player.x - 170, player.y + 5);
+        this.game.debug.text(' torch on: '+player.torchEnabled+'', player.x - 170, player.y + 5);
         this.game.debug.text('  beam on: '+player.torchBeam+'', player.x - 170, player.y + 25);
+        this.game.debug.text('torch ø: '+player.torchAngle(), player.x - 200, player.y + 60);
       }
     }
 
@@ -40,7 +42,7 @@
       this.joypadSprites.create( x, y, 'xbox_ANALOG_L_STATIC' );
       this.joypadSprites.create( x, y, 'xbox_ANALOG_R_STATIC' );
 
-      // loads foreground sprites for active buttons (childred 3 - *)
+      // loads foreground sprites for active buttons (children 3 - *)
       this.joypadSprites.create( x, y, 'xbox_dpad_UP' );          // 3
       this.joypadSprites.create( x, y, 'xbox_dpad_DOWN' );        // 4
       this.joypadSprites.create( x, y, 'xbox_dpad_LEFT' );        // 5
@@ -53,12 +55,11 @@
       this.joypadSprites.create( x, y, 'xbox_SHOULDER_R' );       // 12
       this.joypadSprites.create( x, y, 'xbox_TRIGGER_L' );        // 13
       this.joypadSprites.create( x, y, 'xbox_TRIGGER_R' );        // 14
-      this.joypadSprites.create( x, y, 'xbox_hss_SELECT' );       // 15
-      this.joypadSprites.create( x, y, 'xbox_hss_START' );        // 16
-      this.joypadSprites.create( x, y, 'xbox_hss_HOME' );         // 17
-      this.joypadSprites.create( x, y, 'xbox_ANALOG_L_ACTIVE' );  // 18
-      this.joypadSprites.create( x, y, 'xbox_ANALOG_R_ACTIVE' );  // 19
-      this.joypadSprites.create( x, y, 'xbox_dead');              // 20
+      this.joypadSprites.create( x, y, 'xbox_bs_BACK' );          // 15
+      this.joypadSprites.create( x, y, 'xbox_bs_START' );         // 16
+      this.joypadSprites.create( x, y, 'xbox_ANALOG_L_ACTIVE' );  // 17
+      this.joypadSprites.create( x, y, 'xbox_ANALOG_R_ACTIVE' );  // 18
+      this.joypadSprites.create( x, y, 'xbox_dead');              // 19
     };
 
     disableAllActiveButtons() {
@@ -67,6 +68,10 @@
     }
 
     highlight( button ) { this.joypadSprites.children[button].alpha = 1; }
+
+    joypadDead () { this.joypadSprites.children[19].alpha = 1; }
+
+    update() { this.disableAllActiveButtons(); }
 
   };
 
