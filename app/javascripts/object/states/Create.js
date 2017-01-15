@@ -4,6 +4,7 @@ import Debug from '../Debug';
 import Map from '../prefabs/Map';
 import Physics from '../prefabs/Physics';
 import Torch from '../prefabs/Torch';
+// import Example from '../prefabs/Example';
 
 class Create extends Phaser.State {
 
@@ -19,7 +20,20 @@ class Create extends Phaser.State {
     this.createControls();
     this.createPhysics();
     this.createTorch();
+    // this.createExample();
   }
+
+  /**
+  createExample() {
+    console.log('creating example')
+    this.example = new Example({
+      param_1: this.param_1,
+      param_2: this.param_2,
+      ...,
+      param_n: this.param_n,
+    });
+  }
+  */
 
   createMap() {
     console.log('creating map')
@@ -78,7 +92,8 @@ class Create extends Phaser.State {
     this.controls.update();
     this.torch.update(this.player);
     this.player.update();
-    // this.lightAndShadow.update(this.player.x, this.player.y);
+
+    // this.example.update();
   }
 
   render() {
@@ -88,3 +103,15 @@ class Create extends Phaser.State {
 }
 
 export default Create;
+
+
+/**
+ To make your prefab do the following:
+  1. touch ClassName.js in prefab directory
+  2. edit ClassName.js and set up like Example.js
+  3. Inside of Create.js
+    a. import your ClassName.js
+    b. write a proper createClassName function
+    c. call createClassName() function inside of create() function
+    d. call className.update() function inside of create() function
+*/
