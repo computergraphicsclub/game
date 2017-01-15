@@ -21,12 +21,13 @@ class Player extends Phaser.Sprite {
 
   setPlayerSprite() {
     this.game.add.existing(this);
+    this.torchSprite = this.game.add.sprite(this.x, this.y, 'torch');
     this.anchor.setTo(0.5, 0.5);
   }
 
   setPlayerInventory() {
-    this.torchOn = false;
-    this.torchBeam = true;
+    this.torchEnabled = false;
+    this.torchBeam = false;
     this.harpoons = 100;
     this.oxygen = 100;
     this.health = 100;
@@ -57,12 +58,12 @@ class Player extends Phaser.Sprite {
     this.speed = 2;
   }
 
-  turnTorchOn() {
-    if(this.torchOn) this.torchOn = false;
-    else this.torchOn = true;
+  toggleTorchOn() {
+    if(this.torchEnabled) this.torchEnabled = false;
+    else this.torchEnabled = true;
   }
 
-  torchBeamOn() {
+  toggleTorchMode() {
     if(this.torchBeam) this.torchBeam = false;
     else this.torchBeam = true;
   }
@@ -70,6 +71,24 @@ class Player extends Phaser.Sprite {
   shoot() {
     this.harpoons -= 1;
     console.log('shooting');
+  }
+
+  torchRotation() {
+    this.torchSprite.rotation = this.game.physics.arcade.angleToPointer(this.torchSprite);
+  }
+
+  torchAngle() {
+    return this.convertAngle(this.torchSprite.angle);
+  }
+
+  convertAngle( angle ) {
+    if(angle < 0) return Math.abs(angle);
+    else return (360 - angle);
+  }
+
+  update() {
+    this.torchSprite.x = this.x;
+    this.torchSprite.y = this.y;
   }
 };
 
